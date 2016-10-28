@@ -37,17 +37,9 @@ export var InnerSlider = React.createClass({
     this.setState({
       mounted: true
     });
-    var lazyLoadedList = [];
-    for (var i = 0; i < React.Children.count(this.props.children); i++) {
-      if (i >= this.state.currentSlide && i < this.state.currentSlide + this.props.slidesToShow) {
-        lazyLoadedList.push(i);
-      }
-    }
 
     if (this.props.lazyLoad && this.state.lazyLoadedList.length === 0) {
-      this.setState({
-        lazyLoadedList: lazyLoadedList
-      });
+      this.lazyLoadSlides();
     }
   },
   componentDidMount: function componentDidMount() {
@@ -63,6 +55,10 @@ export var InnerSlider = React.createClass({
       window.addEventListener('resize', this.onWindowResized);
     } else {
       window.attachEvent('onresize', this.onWindowResized);
+    }
+
+    if (this.props.afterInit) {
+      this.props.afterInit();
     }
   },
   componentWillUnmount: function componentWillUnmount() {

@@ -223,19 +223,7 @@ var helpers = {
     }
 
     if (this.props.lazyLoad) {
-      var loaded = true;
-      var slidesToLoad = [];
-      for (var i = targetSlide; i < targetSlide + this.props.slidesToShow; i++ ) {
-        loaded = loaded && (this.state.lazyLoadedList.indexOf(i) >= 0);
-        if (!loaded) {
-          slidesToLoad.push(i);
-        }
-      }
-      if (!loaded) {
-        this.setState({
-          lazyLoadedList: this.state.lazyLoadedList.concat(slidesToLoad)
-        });
-      }
+      this.lazyLoadSlides();
     }
 
     // Slide Transition happens here.
@@ -344,6 +332,27 @@ var helpers = {
       clearInterval(this.state.autoPlayTimer);
       this.setState({
         autoPlayTimer: null
+      });
+    }
+  },
+  getLazyLoadList: function(currentSlideIndex) {
+    var lazyLoadedList = [];
+    var loopIndex = currentSlideIndex + this.props.children.length;
+    for (var h = loopIndex - this.props.lazyLoadOffset; h <= loopIndex + this.props.lazyLoadOffset; h++) {
+      lazyLoadedList.push(h % this.props.children.length);
+    }
+    return lazyLoadedList;
+  },
+  lazyLoadSlides: function() {
+    var newLazyLoadedList = this.state.lazyLoadedList
+      .concat(this.getLazyLoadList(this.state.currentSlide))
+      .filter(function (elem, index, array) {
+        return array.indexOf(elem) == index;
+      });
+
+    if (newLazyLoadedList !== this.state.lazyLoadedList) {
+      this.setState({
+        lazyLoadedList: newLazyLoadedList
       });
     }
   }
