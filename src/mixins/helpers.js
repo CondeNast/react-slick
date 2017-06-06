@@ -346,6 +346,7 @@ var helpers = {
   lazyLoadSlides: function() {
     var newLazyLoadedList = this.state.lazyLoadedList
       .concat(this.getLazyLoadList(this.state.currentSlide))
+      .concat(this.props.lazyLoadList)
       .filter(function (elem, index, array) {
         return array.indexOf(elem) == index;
       });

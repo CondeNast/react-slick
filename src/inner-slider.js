@@ -134,6 +134,7 @@ export var InnerSlider = React.createClass({
       focusOnSelect: this.props.focusOnSelect ? this.selectHandler : null,
       currentSlide: this.state.currentSlide,
       lazyLoad: this.props.lazyLoad,
+      lazyLoadList: this.props.lazyLoadList,
       lazyLoadedList: this.state.lazyLoadedList,
       rtl: this.props.rtl,
       slideWidth: this.state.slideWidth,
