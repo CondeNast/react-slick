@@ -6,13 +6,14 @@ import HelpersMixin from './mixins/helpers';
 import initialState from './initial-state';
 import defaultProps from './default-props';
 import classnames from 'classnames';
+import createReactClass from 'create-react-class';
 import assign from 'object-assign';
 
 import {Track} from './track';
 import {Dots} from './dots';
 import {PrevArrow, NextArrow} from './arrows';
 
-export var InnerSlider = React.createClass({
+export var InnerSlider = createReactClass({
   mixins: [HelpersMixin, EventHandlersMixin],
   list: null,
   track: null,
