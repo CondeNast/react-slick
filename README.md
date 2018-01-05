@@ -1,27 +1,3 @@
-# Condé Nast react-slick fork
-
-### Purpose:
-This project was forked to allow for added features developed by Condé Nast engineering.
-
-### Goal:
-Remove the need for this fork and have said features adapted into react-slick core.
-
-### Added Features:
-
-
-| Property       | Type     | Description                                                                                                                            | Working | Proposed to Core | Accepted into Core |
-|----------------|----------|----------------------------------------------------------------------------------------------------------------------------------------|---------|------------------|--------------------|
-| afterInit      | function | callback function called after inner-slider mounts                                                                                     | Yes     | Yes              | No                 |
-| lazyLoadOffset | int      | Lazy loads offset amount of images, forwards and backwards, in the queue. ```lazyLoad``` must be set to ```true``` to use this feature | Yes     | Yes              | No                 |
-
-### Bug Fixes:
-
-| Description                                       | Working | Proposed to Core | Accepted into Core |
-|---------------------------------------------------|---------|------------------|--------------------|
-| https://github.com/CondeNast/react-slick/issues/9 | Yes     | Yes              | No                 |
-
----
-
 # react-slick
 
 [![Join the chat at https://gitter.im/akiran/react-slick](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/akiran/react-slick?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -29,24 +5,26 @@ Remove the need for this fork and have said features adapted into react-slick co
 
 Carousel component built with React. It is a react port of [slick carousel](http://kenwheeler.github.io/slick/)
 
-### Important
-### Breaking changes in react-slick@0.15
- * slickGoTo prop is deprecated in favor of slickGoTo method. Check this [slickGoTo usage example](https://github.com/akiran/react-slick/blob/master/examples/SlickGoTo.js).
- * dist folder will be removed from the repo to simplify PR review process.  If you are using bower or relying on the dist files in githib repo, use dist files from unpkg.com
-```
-  https://unpkg.com/react-slick@0.13.6/dist/react-slick.min.js
-```
+
 
 ### Installation
 
+**npm**
 ```bash
 npm install react-slick
 ```
+**yarn**
+```bash
+yarn add react-slick
+```
 
-Also install slick-carousel for css and font
+
+⚠️ Also install slick-carousel for css and font
 
 ```bash
 npm install slick-carousel
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
 ```
 
 or add cdn link in your html
@@ -56,7 +34,7 @@ or add cdn link in your html
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
 ```
 
-### [Demos](http://webrafter.com/opensource/react-slick)
+### [Demos](http://neostack.com/opensource/react-slick)
 
 ### [PlayGround](https://jsfiddle.net/kirana/20bumb4g/)
 Use [jsfiddle template](https://jsfiddle.net/kirana/20bumb4g/) to try react-slick with different settings.
@@ -75,7 +53,7 @@ get started with react-slick.
 var React = require('react');
 var Slider = require('react-slick');
 
-var SimpleSlider = React.createClass({
+class SimpleSlider extends React.Component {
   render: function () {
     var settings = {
       dots: true,
@@ -95,55 +73,64 @@ var SimpleSlider = React.createClass({
       </Slider>
     );
   }
-});
+}
 ```
 
-|    Property    | Type |          Description          | Working |
-| -------------  | ---- |          -----------          | ------- |
-| accessibility  | bool | Enables tabbing and arrow key navigation | Yes |
-| className      | String |Additional class name for the inner slider div | Yes |
-| adaptiveHeight | bool | Adjust the slide's height automatically | Yes |
-| arrows         | bool | Should we show Left and right nav arrows | Yes |
-| nextArrow      | React Component | Use this component for the next arrow button | Yes |
-| prevArrow      | React Component | Use this component for the prev arrow button | Yes |
-| autoplay       | bool | Should the scroller auto scroll? | Yes |
-| autoplaySpeed  |  int | delay between each auto scoll. in ms | Yes |
-| centerMode     | bool | Should we centre to a single item? | Yes |
-| centerPadding  | | | |
-| cssEase        | | | |
-| customPaging   | func | Custom paging templates. [Example](https://github.com/akiran/react-slick/blob/master/examples/CustomPaging.js)| Yes |
-| dots           | bool | Should we show the dots at the bottom of the gallery | Yes |
-| dotsClass      | string | Class applied to the dots if they are enabled | Yes |
-| draggable      | bool | Is the gallery scrollable via dragging on desktop? | Yes |
-| easing         | string | | |
-| fade           | bool | Slides use fade for transition  | Yes |
-| focusOnSelect  | bool | Go to slide on click | Yes |
-| infinite       | bool | should the gallery wrap around it's contents | Yes |
-| initialSlide   | int | which item should be the first to be displayed | Yes |
-| lazyLoad       | bool | Loads images or renders components on demands | Yes |
-| pauseOnHover   | bool | prevents autoplay while hovering | Yes |
-| responsive     | array | Array of objects in the form of `{ breakpoint: int, settings: { ... } }` The breakpoint _int_ is the `maxWidth` so the settings will be applied when resolution is below this value. Breakpoints in the array should be ordered from smalles to greatest. Use 'unslick' in place of the settings object to disable rendering the carousel at that breakpoint. Example: `[ { breakpoint: 768, settings: { slidesToShow: 3 } }, { breakpoint: 1024, settings: { slidesToShow: 5 } }, { breakpoint: 100000, settings: 'unslick' } ]`| Yes |
-| rtl            | bool | Reverses the slide order | Yes |
-| slide         | string |||
-| slidesToShow | int | Number of slides to be visible at a time | Yes |
-| slidesToScroll | int | Number of slides to scroll for each navigation item
-| speed | int |||
-| swipe | bool |||
-| swipeToSlide | bool | Allow users to drag or swipe directly to a slide irrespective of slidesToScroll | Yes |
-| touchMove | bool |||
-| touchThreshold | int |||
-| variableWidth | bool |||
-| useCSS | bool | Enable/Disable CSS Transitions | Yes |
-| vertical | bool | Vertical slide mode | Yes |
-| afterChange | function | callback function called after the current index changes | Yes |
-| beforeChange | function | callback function called before the current index changes | Yes |
-| slickGoTo | int | go to the specified slide number | |
+### Props
+
+Props            | Type            | Default Value                   | Description                                                 | Working
+---------------- | --------------- | ------------------------------- | -----------                                                 | -------
+`accessibility`  | `bool`          | `true`                          | Enable tabbing and arrow key navigation                     | Yes
+`className`      | `string`        | `''`                            | CSS class for inner slider div                              | Yes
+`adaptiveHeight` | `bool`          | `false`                         | Adjust the slide's height automatically                     | Yes
+`arrows`         | `bool`          | `true`                          |                                                             | Yes
+`nextArrow`      | React Element   | `null`                          | React element for next arrow. [Example](customArrows)       | Yes
+`prevArrow`      | React Element   | `null`                          | React element for prev arrow. [Example](customArrows)       | Yes
+`autoplay`       | `bool`          | `false`                         |                                                             | Yes
+`autoplaySpeed`  | `int`           | `3000`                          | Delay between each auto scroll (in milliseconds)            | Yes
+`centerMode`     | `bool`          | `false`                         | Center current slide                                        | Yes
+`centerPadding`  |                 | `'50px'`                        |                                                             |
+`cssEase`        |                 | `'ease'`                        |                                                             |
+`customPaging`   | `func`          | `i => <button>{i + 1}</button>` | Custom paging templates. [Example](customPaging)            | Yes
+`dots`           | `bool`          | `Default`                       |                                                             | Yes
+`dotsClass`      | `string`        | `'slick-dots'`                  | CSS class for dots                                          | Yes
+`draggable`      | `bool`          | `true`                          | Enable scrollable via dragging on desktop                   | Yes
+`easing`         | `string`        | `'linear'`                      |                                                             |
+`fade`           | `bool`          | `Default`                       |                                                             | Yes
+`focusOnSelect`  | `bool`          | `false`                         | Go to slide on click                                        | Yes
+`infinite`       | `bool`          | `true`                          | Infinitely wrap around contents                             | Yes
+`initialSlide`   | `int`           | `0`                             | Index of first slide                                        | Yes
+`lazyLoad`       | `bool`          | `false`                         | Load images or render components on demand                  | Yes
+`pauseOnHover`   | `bool`          | `true`                          | Prevents autoplay while hovering                            | Yes
+`responsive`     | `array`         | `null`                          | Customize based on breakpoints (detailed explanation below) | Yes
+`rtl`            | `bool`          | `false`                         | Reverses the slide order                                    | Yes
+`slide`          | `string`        | `'div'`                         |                                                             |
+`slidesToShow`   | `int`           | `1`                             | Yes                                                         | Yes
+`slidesToScroll` | `int`           | `1`                             |                                                             |
+`speed`          | `int`           | `500`                           |                                                             |
+`swipe`          | `bool`          | `true`                          |                                                             |
+`swipeToSlide`   | `bool`          | `false`                         | Enable drag/swpie irrespective of `slidesToScroll`          | Yes
+`touchMove`      | `bool`          | `true`                          |                                                             |
+`touchThreshold` | `int`           | `5`                             |                                                             |
+`variableWidth`  | `bool`          | `false`                         |                                                             |
+`useCSS`         | `bool`          | `true`                          | Enable/Disable CSS Transitions                              | Yes
+`vertical`       | `bool`          | `false`                         |                                                             | Yes
+`afterChange`    | `func`          | `Default`                       | Index change callback. `index => ...`                       | Yes
+`beforeChange`   | `func`          | `null`                          | Index change callback. `(oldIndex, newIndex) => ...`        | Yes
+`slickGoTo`      | `int`           | `Default`                       | Go to the specified slide number                            |
+
+#### `responsive` property
+
+Array of objects in the form of `{ breakpoint: int, settings: { ... } }` The breakpoint _int_ is the `maxWidth` so the settings will be applied when resolution is below this value. Breakpoints in the array should be ordered from smallest to greatest. Use 'unslick' in place of the settings object to disable rendering the carousel at that breakpoint. Example: `[ { breakpoint: 768, settings: { slidesToShow: 3 } }, { breakpoint: 1024, settings: { slidesToShow: 5 } }, { breakpoint: 100000, settings: 'unslick' } ]`
+
+[customArrows]: https://github.com/akiran/react-slick/blob/master/examples/CustomArrows.js
+[customPaging]: https://github.com/akiran/react-slick/blob/master/examples/CustomPaging.js
 
 
 ### Methods
-* slickNext()   - function called to change current slide on next slide ([Example](https://github.com/akiran/react-slick/blob/master/examples/PreviousNextMethods.js))
-* slickPrev()   - function called to change current slide on previous slide ([Example](https://github.com/akiran/react-slick/blob/master/examples/PreviousNextMethods.js))
-* slickGoTo(slideNumber) - function called to change current slide to given slide number ([Example](https://github.com/akiran/react-slick/blob/master/examples/SlickGoTo.js))
+* `slickNext()`   - function called to change current slide on next slide ([Example](https://github.com/akiran/react-slick/blob/master/examples/PreviousNextMethods.js))
+* `slickPrev()`   - function called to change current slide on previous slide ([Example](https://github.com/akiran/react-slick/blob/master/examples/PreviousNextMethods.js))
+* `slickGoTo(slideNumber)` - function called to change current slide to given slide number ([Example](https://github.com/akiran/react-slick/blob/master/examples/SlickGoTo.js))
 
 ### Custom next/prev arrows
 
@@ -153,7 +140,7 @@ as the values of nextArrow and prevArrow.
 ```js
 class LeftNavButton extends React.Component {
   render() {
-    return <button {...this.props}>Next</button>  
+    return <button {...this.props}>Next</button>
   }
 }
 ```
@@ -161,21 +148,46 @@ class LeftNavButton extends React.Component {
 Important: be sure that you pass your component's props to your clickable element
 like the example above. If you don't, your custom component won't trigger the click handler.
 
-You can also set onClick={this.props.onClick} if you only want to set the click handler. 
+You can also set `onClick={this.props.onClick}` if you only want to set the click handler.
 
-### Flexbox support 
+### Flexbox support
 If you have flex property on container div of slider, add below css
-```
+```css
 * {
   min-height: 0;
   min-width: 0;
 }
 ```
 
+### Test Setup
+If you try to run tests with jest in a project that uses react-slick, you may run into this error
+```
+matchMedia not present, legacy browsers require a polyfill
+```
+
+To fix this issue add below snippet in test-setup.js
+```js
+window.matchMedia = window.matchMedia || function() {
+    return {
+        matches : false,
+        addListener : function() {},
+        removeListener: function() {}
+    };
+};
+
+```
+and add below jest config in package.json
+```json
+"jest": {
+    "setupFiles": ["test-setup.js"]
+}
+```
+
+
 ### Development
 Want to run demos locally
 
-```shell
+```bash
 git clone https://github.com/akiran/react-slick
 npm install
 npm start
@@ -184,6 +196,3 @@ open http://localhost:8080
 
 ### Polyfills for old IE support
 `matchMedia` support from [media-match](https://github.com/weblinc/media-match)
-
-For premium support, contact me on codementor
-[![Contact me on Codementor](https://cdn.codementor.io/badges/contact_me_github.svg)](https://www.codementor.io/akiran?utm_source=github&utm_medium=button&utm_term=akiran&utm_campaign=github)

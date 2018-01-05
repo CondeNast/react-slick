@@ -68,8 +68,11 @@ var helpers = {
     const listHeight = slideHeight * props.slidesToShow;
 
     // pause slider if autoplay is set to false
-    if(!props.autoplay)
+    if(!props.autoplay) {
       this.pause();
+    } else {
+      this.autoPlay();
+    }
 
     this.setState({
       slideCount,
@@ -91,10 +94,10 @@ var helpers = {
     });
   },
   getWidth: function getWidth(elem) {
-    return elem.getBoundingClientRect().width || elem.offsetWidth;
+    return elem && (elem.getBoundingClientRect().width || elem.offsetWidth) || 0;
   },
   getHeight(elem) {
-    return elem.getBoundingClientRect().height || elem.offsetHeight;
+    return elem && (elem.getBoundingClientRect().height || elem.offsetHeight) || 0;
   },
   adaptHeight: function () {
     if (this.props.adaptiveHeight) {
@@ -319,17 +322,17 @@ var helpers = {
   },
   autoPlay: function () {
     if (this.state.autoPlayTimer) {
-      return;
+      clearTimeout(this.state.autoPlayTimer);
     }
     if (this.props.autoplay) {
       this.setState({
-        autoPlayTimer: setInterval(this.play, this.props.autoplaySpeed)
+        autoPlayTimer: setTimeout(this.play, this.props.autoplaySpeed)
       });
     }
   },
   pause: function () {
     if (this.state.autoPlayTimer) {
-      clearInterval(this.state.autoPlayTimer);
+      clearTimeout(this.state.autoPlayTimer);
       this.setState({
         autoPlayTimer: null
       });
