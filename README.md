@@ -1,3 +1,26 @@
+# Condé Nast react-slick fork
+
+### Purpose:
+This project was forked to allow for added features developed by Condé Nast engineering.
+
+### Goal:
+Remove the need for this fork and have said features adapted into react-slick core.
+
+### Added Features:
+
+| Property       | Type     | Description                                                                                                                            | Working | Proposed to Core | Accepted into Core | PR link                                         |
+|----------------|----------|----------------------------------------------------------------------------------------------------------------------------------------|---------|------------------|--------------------|-------------------------------------------------|
+| afterInit      | function | callback function called after inner-slider mounts                                                                                     | Yes     | Yes              | Yes                 | [link](https://github.com/akiran/react-slick/pull/1013) |
+| lazyLoadOffset | int      | Lazy loads offset amount of images, forwards and backwards, in the queue. ```lazyLoad``` must be set to ```true``` to use this feature | Yes     | Yes               | No                 |                                                 |
+
+### Bug Fixes:
+
+| Description                                       | Working | Proposed to Core | Accepted into Core | PR link                                        |
+|---------------------------------------------------|---------|------------------|--------------------|------------------------------------------------|
+| [Issue Link](https://github.com/CondeNast/react-slick/issues/9) | Yes     | Yes              | Yes                | [Link](https://github.com/akiran/react-slick/pull/762) |
+
+---
+
 # react-slick
 
 [![Join the chat at https://gitter.im/akiran/react-slick](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/akiran/react-slick?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
